@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#081b28" />
+    <title>Ranoa Spell Lab — Ujian sihir air</title>
+    <link rel="icon" href="assets/sigil.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+    <script defer src="engine.js"></script>
+    <script defer src="renderer.js"></script>
+    <script defer src="app.js"></script>
+  </head>
+  <body>
+    <header class="masthead">
+      <a href="#main" class="brand"
+        ><img src="assets/sigil.svg" width="38" height="38" alt="" /><span
+          >RANOA <small>MAGIC RESEARCH ACADEMY</small></span
+        ></a
+      ><span class="edition">PRAKTIKUM / 007 <span class="gold">✧</span></span>
+    </header>
+    <main id="main">
+      <section class="intro" aria-labelledby="title">
+        <div>
+          <p class="eyebrow">LABORATORIUM ELEMEN · AIR</p>
+          <h1 id="title">
+            Ranoa <em>Spell Lab</em><span class="title-dot">.</span>
+          </h1>
+          <p class="lede">
+            Tenangkan pikiran. Kendalikan arus. Pecahkan rekor.
+          </p>
+        </div>
+        <div class="exam-note">
+          <span>UJIAN KENDALI</span><strong>60<span> detik</span></strong
+          ><span>TIGA MANTRA. SATU KESEMPATAN.</span>
+        </div>
+      </section>
+      <noscript>
+        <p class="javascript-notice">
+          Ranoa Spell Lab memerlukan JavaScript untuk menjalankan permainan.
+          Aktifkan JavaScript lalu muat ulang halaman; ujian belum dimulai.
+        </p>
+      </noscript>
+      <section class="lab" aria-label="Arena ujian sihir">
+        <div class="hud">
+          <div class="stat"><span>SKOR</span><strong id="score">0</strong></div>
+          <div class="stat">
+            <span>WAKTU</span
+            ><strong><span id="time">60</span><small> s</small></strong>
+          </div>
+          <div class="stat">
+            <span>KOMBO</span
+            ><strong
+              ><span id="combo">0</span
+              ><small id="multiplier"> ×1</small></strong
+            >
+          </div>
+          <div class="stat">
+            <span>AKURASI</span><strong id="accuracy">0%</strong>
+          </div>
+          <button id="pause" class="quiet" disabled>Jeda <kbd>P</kbd></button>
+        </div>
+        <div class="arena-wrap">
+          <canvas
+            id="arena"
+            width="900"
+            height="560"
+            tabindex="0"
+            aria-label="Arena air, bidik dan lepaskan mantra"
+            aria-describedby="keyboard-help aim"
+            >Arena sihir. Gunakan T untuk membidik target dan Space untuk
+            melepas mantra.</canvas
+          >
+          <div class="arena-label">
+            <span>◈ KOLAM RESONANSI</span><span id="phase">Siap</span>
+          </div>
+          <div id="overlay" class="overlay">
+            <div class="overlay-inner">
+              <p class="eyebrow" id="overlay-kicker">UJIAN SIHIR AIR</p>
+              <h2 id="overlay-title">Setiap riak,<br />sebuah kemungkinan.</h2>
+              <p id="overlay-copy">
+                Hancurkan rune yang mengapung dalam 60 detik. Rangkai hit tanpa
+                meleset untuk melipatgandakan skor.
+              </p>
+              <div id="result" hidden></div>
+              <button id="action" class="primary" disabled>Mulai ujian</button>
+              <p id="overlay-hint" class="hint">
+                Klik / sentuh arena · atau T lalu Space
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="instrument">
+          <div class="mana-head">
+            <span
+              >MANA <strong id="mana">100</strong
+              ><span class="muted"> / 100</span></span
+            ><span class="muted">+12 / detik</span>
+          </div>
+          <div
+            class="mana-track"
+            role="meter"
+            aria-label="Mana"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-valuenow="100"
+          >
+            <div id="mana-fill"></div>
+          </div>
+          <div id="feedback" role="status" aria-live="polite">
+            Arena siap. Arus menantimu.
+          </div>
+        </div>
+        <div class="spells" aria-label="Pilih mantra">
+          <button class="spell" data-spell="bolt" aria-pressed="true">
+            <span class="spell-icon">↗</span
+            ><span
+              ><strong>Water Bolt</strong><small>Presisi · 10 mana</small></span
+            ><kbd>1</kbd></button
+          ><button class="spell" data-spell="burst" aria-pressed="false">
+            <span class="spell-icon">✧</span
+            ><span
+              ><strong>Aqua Burst</strong><small>Area · 28 mana</small></span
+            ><kbd>2</kbd></button
+          ><button class="spell" data-spell="frost" aria-pressed="false">
+            <span class="spell-icon">❄</span
+            ><span
+              ><strong>Frost Ring</strong
+              ><small>Perlambat · 22 mana</small></span
+            ><kbd>3</kbd>
+          </button>
+        </div>
+        <div class="lab-footer">
+          <span>REKOR LOKAL <strong id="record">0</strong></span
+          ><span
+            >CAST <strong id="casts">0</strong> · BIDIK
+            <span id="aim">450, 280</span></span
+          ><label class="effects"
+            ><input id="effects" type="checkbox" checked /> Efek
+            dekoratif</label
+          >
+        </div>
+      </section>
+      <section class="guide" aria-labelledby="guide-title">
+        <div>
+          <p class="eyebrow">CATATAN PRAKTIKUM</p>
+          <h2 id="guide-title">Ritme, bukan terburu-buru.</h2>
+          <p>
+            Bidik rune bernomor. Bolt untuk presisi, Burst untuk kelompok, Frost
+            untuk menahan arus. Hit kelima menaikkan pengali ke ×2; maksimal ×5.
+            Meleset memutus kombo.
+          </p>
+        </div>
+        <div>
+          <h3>Kendali & mantra</h3>
+          <p id="keyboard-help">
+            <kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd> pilih mantra ·
+            <kbd>↑↓←→</kbd> bidik · <kbd>T</kbd> target berikut ·
+            <kbd>Space</kbd> cast saat arena fokus · <kbd>P</kbd> /
+            <kbd>Esc</kbd> jeda.
+          </p>
+          <p class="fine">
+            Jeda mantra: Bolt 0,15 dtk · Burst 0,65 dtk · Frost 1,2 dtk. Frost:
+            35% kecepatan selama 4 detik, tanpa damage. Mode minim gerak
+            mengurangi dekorasi, bukan gerakan target.
+          </p>
+        </div>
+      </section>
+    </main>
+    <footer class="page-footer">
+      <span>RANOA SPELL LAB <span class="gold">/</span> WATER STUDIES</span
+      ><span>Karya fan-made, tidak resmi. Rekor hanya di perangkat ini.</span>
+    </footer>
+  </body>
+</html>
