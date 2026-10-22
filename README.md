@@ -1,5 +1,9 @@
 # Ranoa Spell Lab
 
+**Mainkan:** https://aichrisz.github.io/ranoa-spell-lab/
+
+**Source:** https://github.com/aichrisz/ranoa-spell-lab
+
 Game arcade air 60 detik, tanpa dependensi runtime atau koneksi jaringan.
 
 ## API dan arsitektur
@@ -35,4 +39,4 @@ Fan-made, tidak resmi dan tidak berafiliasi dengan pemilik karya asal. Seluruh i
 
 Arcade 60 detik aktif dengan tiga mantra, kombo, mana/cooldown, target bergerak, rekor lokal, jeda otomatis dan hasil/replay. Engine deterministik hanya mengatur aturan; renderer membaca snapshot terpisah dan menggambar dunia; adapter HTML mengelola input, fokus, penyimpanan serta satu clock/rAF. Efek dekoratif tidak mengubah perhitungan gameplay.
 
-Parent menjalankan ulang 7 tes unit dan 13 tes browser: semuanya lulus, tanpa skipped/flaky; audit dependensi nol kerentanan. Lima tes engine independen, tiga mantra lewat emulasi touchscreen Chromium, dan HTML mandiri tanpa permintaan aset tetangga juga lulus. Review Astra dengan konteks baru memberi `ship`; bukti rinci dan batas review ada di docs/tdd-evidence.md. Ini rilis **lokal/offline**, belum dipublikasikan ke GitHub atau hosting. Unduh artifacts/Ranoa-Spell-Lab.html dan buka di browser untuk bermain tanpa instalasi.
+Parent menjalankan ulang 7 tes unit dan 13 tes browser: semuanya lulus, tanpa skipped/flaky; audit dependensi nol kerentanan. Lima tes engine independen, tiga mantra lewat emulasi touchscreen Chromium, dan HTML mandiri tanpa permintaan aset tetangga juga lulus. Review Astra dengan konteks baru memberi `ship`; bukti rinci dan batas review ada di docs/tdd-evidence.md. Game ini **sudah live di GitHub Pages**, dengan source pada `main` dan runtime pada `gh-pages`. Untuk versi offline, jalankan `npm run export`, lalu buka artifacts/Ranoa-Spell-Lab.html di browser tanpa instalasi tambahan. Bukti publikasi dan prosedur deployment/rollback: [docs/deployment.md](docs/deployment.md).
